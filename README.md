@@ -1,11 +1,11 @@
-# CarND-Advanced-Lane-Lines
+# Finding Lane Lines on the Road
 Project 1 Submission for Udacity Self-Driving Car Nanodegree 
 
 This project includes utilizing gray-scaling, canny-edge detection, masking, and Hough-transforming to attempt to detect lane lines on images and videos. The writeup for my project is also included below in the same markdown.
 
 # Writeup
 
-## Current Pipeline Implementation
+## 1. Current Pipeline Implementation
 
 Currently, for my lane line detection pipeline, I am using these few techniques.
  
@@ -43,9 +43,11 @@ Finally, the most important part of the pipeline is the convering of the various
 
 One thing I did was to incorporate the idea of storing the historical slopes and intercepts so that we can construct a sliding window aveerage of the slopes and intercepts. Furthermore, we also introduce a check to reject lane lines with slopes or intercepts that change too rapidly as they may be lines that are formed from picking up edges not related to the lane lines. In those cases, we use back the historical values of the slope and intercept, which is an advantage of storing recent values of the slope and intercept.
 
-## Potential Shortcomings + Possible Improvements
+## 2. Potential Shortcomings 
 
-From the second video, we can see that the lane line is still not perfect, there are misalignments during the course of the video, and 
-can be better improved by either more tuning of the parameters. Another possible method is to keep the historical values of the two points used to plot the lane lines for each side as moving averages as well. 
+One potential shortcoming is likely that under low contrast, the algorithm may not work well due to lack of edges to detect. For the two videos, they are shot under broad daylight so it is easy to detect the contrast in the lines and the road but under dark conditions, especially at night it would likely not work. One specific example is that in the challenge video, at some point in time, I observe that the car passes by a tree which project shadows. This would likely cause many random edges that are not lane lines to be detected due to contrast and would need some method to deal with it. 
 
-In the challenge video, at some point in time, I observe that the car passes by a tree which project shadows. This would likely cause many random edges that are not lane lines to be detected due to contrast and would need some method to deal with it. One possible improvement for this would be outlier detection algorithms, but unfortunately I was not able to find a good one to work as of the project submission.
+## 3. Possible Improvements
+The pipeline can be better improved by more tuning of the parameter, and another possible improvement potentially is to keep the historical values of the two points used to plot the lane lines for each side as moving averages as well. 
+
+Finally, one possible improvement for this would be outlier detection algorithms to deal with the contrast and shadow issue, but unfortunately I was not able to find a good one to work as of the project submission.
